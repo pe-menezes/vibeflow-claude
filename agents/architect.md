@@ -6,7 +6,6 @@ description: >
   or when the task requires thinking before coding. Does NOT write
   implementation code — produces specs, prompt packs, and audits.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
-model: sonnet
 memory: project
 ---
 
@@ -39,16 +38,6 @@ any spec, prompt pack, or audit:
 3. Read relevant pattern docs based on the task
 4. Use real patterns from these docs in your output
 5. After the task, update docs if you learned something new
-
-### Model Selection
-
-This agent uses **Sonnet** by default — fast, cost-efficient, and very capable
-for spec-driven tasks (discover, gen-spec, prompt-pack, analyze, audit).
-
-Sonnet is ~3x cheaper and faster than Opus, with minimal trade-off in quality
-for structured planning work. If your project has very complex architecture
-and you need deeper reasoning, change `model: sonnet` to `model: opus` in
-the YAML frontmatter above.
 
 ### Keeping knowledge fresh:
 - After every significant interaction, consider if any .vibeflow/ doc

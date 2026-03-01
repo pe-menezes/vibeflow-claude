@@ -76,7 +76,7 @@ If PARTIAL or FAIL, generate an incremental prompt pack covering only the gaps.
 - Abstraction only with 2+ real uses.
 - New dependency: justify in 1 line.
 - Default budget: ≤ 6 files changed per task (or the value from
-  `.vibeflow/index.md` `Budget sugerido` line, if available).
+  `.vibeflow/index.md` `Suggested budget` line, if available).
 - If exceeding budget: justify.
 
 ## When to request more context (before generating a prompt pack)

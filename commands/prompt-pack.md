@@ -47,7 +47,7 @@ What NOT to do. Copied from spec.
 
 ### 3. Budget
 Max files to change. Read the budget from the spec. If the spec doesn't
-specify a budget, check `.vibeflow/index.md` for the `Budget sugerido`
+specify a budget, check `.vibeflow/index.md` for the `Suggested budget`
 line. If neither is available, default to ≤ 6.
 
 ### 4. Project Patterns to Follow

@@ -20,7 +20,7 @@
 ### v0.4.0 (2026-02-28)
 
 - **New command: `/vibeflow:quick`** — fast-track for small tasks. A single command that generates a prompt pack directly, skipping discover and spec. Runs lightweight scan if `.vibeflow/` doesn't exist. Default budget ≤4 files. Ephemeral spec (not persisted).
-- **Architect model → Sonnet** — default model for the architect agent changed from Opus to Sonnet. ~3x cheaper and faster, excellent quality for spec-driven development tasks. Opus available via manual edit of frontmatter in `agents/architect.md`.
+- **Architect model → user's choice** — architect agent no longer hardcodes a model. It inherits whatever model the user has configured.
 - **Mandatory tests in audit** — `/vibeflow:audit` now detects and runs tests automatically based on the project stack (npm test, pytest, cargo test, etc.). Test failure = automatic FAIL, regardless of DoD. `/vibeflow:prompt-pack` now always includes mandatory test commands section.
 
 ### v0.3.0 (2026-02-26)

@@ -24,7 +24,7 @@ Generate a complete spec for: $ARGUMENTS
 
 1. Check if `.vibeflow/` exists. If it does:
    - Read `.vibeflow/index.md` for project context
-   - Check for `Budget sugerido: ≤ N` line in index.md — use that as the
+   - Check for `Suggested budget: ≤ N` line in index.md — use that as the
      budget for this spec. If not present, default to ≤ 6 files.
    - Read `.vibeflow/conventions.md` for coding standards
    - Read the pattern docs from `.vibeflow/patterns/` that are relevant

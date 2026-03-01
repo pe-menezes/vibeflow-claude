@@ -467,7 +467,7 @@ The **architect** is a sub-agent invoked automatically by Claude when the task i
 
 **Tools available:** Read, Grep, Glob, Bash, WebSearch, WebFetch.
 
-**Model:** Sonnet (default — fast, cost-efficient, very capable for spec-driven tasks). To use Opus for deeper reasoning on complex projects, change `model: sonnet` to `model: opus` in `agents/architect.md`.
+**Model:** Uses whatever model the user has configured. No model is hardcoded — the agent inherits the active model.
 
 ### Memory system (2 layers)
 
@@ -662,7 +662,7 @@ Example using a fictional Next.js app:
 | File | Purpose |
 |------|---------|
 | `.claude-plugin/plugin.json` | Plugin manifest |
-| `agents/architect.md` | Architect sub-agent (model: sonnet, memory: project) |
+| `agents/architect.md` | Architect sub-agent (memory: project) |
 | `skills/spec-driven-dev/SKILL.md` | Core methodology skill (auto-loaded) |
 | `commands/discover.md` | Interactive dialogue → PRD |
 | `commands/quick.md` | Fast-track → prompt pack |
