@@ -11,7 +11,24 @@ project's real patterns.
 
 ## Install
 
-### Option A: From a local marketplace (development)
+### Option A: From GitHub marketplace (recommended)
+
+In Claude (Add marketplace from GitHub), use:
+
+```text
+pe-menezes/vibeflow
+```
+
+Important: this field expects `owner/repo` (or a GitHub repo URL), not the raw `marketplace.json` URL.
+
+In Claude Code CLI:
+
+```bash
+/plugin marketplace add pe-menezes/vibeflow
+/plugin install vibeflow@vibeflow-marketplace
+```
+
+### Option B: From a local marketplace (development)
 
 ```bash
 # 1. Create a marketplace wrapper
@@ -41,7 +58,7 @@ git clone https://github.com/pe-menezes/vibeflow.git vibeflow-plugin
 # Restart Claude Code
 ```
 
-### Option B: Upload to Cowork
+### Option C: Upload to Cowork
 
 In the Cowork desktop app:
 1. Go to Customize → Browse Plugins → Upload Plugin

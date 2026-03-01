@@ -46,7 +46,24 @@ The core loop:
 
 ## 2. Installation
 
-### Option A: Local marketplace (development / self-hosted)
+### Option A: GitHub marketplace (recommended)
+
+In Claude (Add marketplace from GitHub), use:
+
+```text
+pe-menezes/vibeflow
+```
+
+Important: this field expects `owner/repo` (or a GitHub repo URL), not the raw `marketplace.json` URL.
+
+In Claude Code CLI:
+
+```bash
+/plugin marketplace add pe-menezes/vibeflow
+/plugin install vibeflow@vibeflow-marketplace
+```
+
+### Option B: Local marketplace (development / self-hosted)
 
 ```bash
 # 1. Create the marketplace wrapper directory
@@ -80,7 +97,7 @@ git clone https://github.com/pe-menezes/vibeflow.git vibeflow-plugin
 # 6. Restart Claude Code
 ```
 
-### Option B: Upload directly to Cowork
+### Option C: Upload directly to Cowork
 
 1. Open the Cowork desktop app.
 2. Go to **Customize → Browse Plugins → Upload Plugin**.
