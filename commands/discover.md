@@ -4,7 +4,6 @@ description: >
   actionable PRD (Product Requirements Document). Use before gen-spec
   when the idea is not yet well defined.
   Usage: /vibeflow:discover <idea or area>
-disable-model-invocation: true
 ---
 
 ## Language

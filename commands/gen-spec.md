@@ -4,7 +4,6 @@ description: >
   scope, anti-scope, technical decisions, and risks. Grounded in
   the project's real patterns from .vibeflow/.
   Usage: /vibeflow:gen-spec <feature description>
-disable-model-invocation: true
 ---
 
 ## Language

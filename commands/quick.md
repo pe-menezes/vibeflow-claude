@@ -3,7 +3,6 @@ description: >
   Fast-track: generate a prompt pack for small tasks in one command.
   Skips discover, generates ephemeral spec, outputs ready-to-use prompt pack.
   Usage: /vibeflow:quick <task description>
-disable-model-invocation: true
 ---
 
 ## Language

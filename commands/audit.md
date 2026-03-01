@@ -4,7 +4,6 @@ description: >
   Compares the current state of the code against the spec/DoD and verifies
   the implementation follows conventions from .vibeflow/.
   Usage: /vibeflow:audit <spec-file-or-feature>
-disable-model-invocation: true
 ---
 
 ## Language

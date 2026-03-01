@@ -4,7 +4,6 @@ description: >
   corrections, new conventions, decisions, or patterns based on
   natural language feedback.
   Usage: /vibeflow:teach <feedback>
-disable-model-invocation: true
 ---
 
 ## Language

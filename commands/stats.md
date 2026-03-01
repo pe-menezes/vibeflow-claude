@@ -3,7 +3,6 @@ description: >
   Show statistics from audit reports. Reads all audits and compiles
   pass/fail rates, most violated patterns, and common DoD gaps.
   Usage: /vibeflow:stats
-disable-model-invocation: true
 ---
 
 ## Language

@@ -5,7 +5,6 @@ description: >
   has NO context beyond the prompt itself. Embeds real patterns from
   .vibeflow/ so the agent follows the project's conventions.
   Usage: /vibeflow:prompt-pack <spec-file-or-feature>
-disable-model-invocation: true
 ---
 
 ## Language

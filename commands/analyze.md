@@ -6,7 +6,6 @@ description: >
   Supports incremental analysis: if .vibeflow/ already exists, detects
   changes via git and updates only affected modules.
   Usage: /vibeflow:analyze [--fresh]
-disable-model-invocation: true
 ---
 
 ## Language
