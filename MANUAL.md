@@ -3,8 +3,8 @@
 **Version:** 1.0.0
 **Last updated:** 2026-03-01
 
-> **Idioma:** Todo output do Vibeflow é em Português BR por padrão.
-> Termos técnicos em inglês são mantidos quando são padrão da indústria.
+> **Language:** Vibeflow outputs adapt to the language of the user's input.
+> Technical terms in English are kept when they are industry standard.
 
 This is the Single Source of Truth for the Vibeflow plugin.
 
@@ -17,11 +17,11 @@ Vibeflow is a plugin for Claude Code and Claude Cowork that implements **spec-dr
 The core loop:
 
 ```
-/vibeflow:discover       ← diálogo → PRD (quando a ideia é vaga)
+/vibeflow:discover       ← dialogue → PRD (when the idea is vague)
          ↓
 /vibeflow:analyze         ← run once (or when codebase changes significantly)
          ↓
-/vibeflow:gen-spec        ← write a grounded spec (reads .vibeflow/; aceita PRD)
+/vibeflow:gen-spec        ← write a grounded spec (reads .vibeflow/; accepts PRD)
          ↓
 /vibeflow:prompt-pack    ← generate self-contained pack for coding agent
          ↓
@@ -32,10 +32,10 @@ The core loop:
     PASS? Ship it. PARTIAL/FAIL? incremental prompt pack → repeat
 ```
 
-**Fast-track (tasks pequenas):**
+**Fast-track (small tasks):**
 
 ```
-/vibeflow:quick "<descrição>"  ← gera prompt pack direto (pula discover/spec)
+/vibeflow:quick "<description>"  ← generates prompt pack directly (skips discover/spec)
          ↓
    coding agent implements
          ↓
@@ -106,7 +106,7 @@ You should see `vibeflow:discover`, `vibeflow:quick`, `vibeflow:analyze`, `vibef
 **Purpose:** Interactive dialogue to turn a vague idea into a clear, actionable PRD (Product Requirements Document).
 
 **When to use:**
-- You have a fuzzy idea or a broad area — "quero melhorar o onboarding", "preciso de notificações".
+- You have a fuzzy idea or a broad area — "I want to improve the onboarding", "I need notifications".
 - Scope is unclear and you want to sharpen it before writing a spec.
 - You want someone to challenge your assumptions and cut scope before implementation.
 
@@ -122,9 +122,9 @@ You should see `vibeflow:discover`, `vibeflow:quick`, `vibeflow:analyze`, `vibef
 **Examples:**
 
 ```
-/vibeflow:discover "quero melhorar a experiência de onboarding"
-/vibeflow:discover "preciso de um sistema de notificações"
-/vibeflow:discover "os testes estão lentos e frágeis"
+/vibeflow:discover "I want to improve the onboarding experience"
+/vibeflow:discover "I need a notification system"
+/vibeflow:discover "tests are slow and fragile"
 ```
 
 **What it does:**
@@ -134,7 +134,7 @@ You should see `vibeflow:discover`, `vibeflow:quick`, `vibeflow:analyze`, `vibef
 - When there is enough clarity (or after 5 rounds), generates a PRD and saves it to `.vibeflow/prds/<slug>.md`.
 
 **Output:**
-- PRD with: Problema, Público-alvo, Solução proposta, Critérios de sucesso, Escopo v0, Anti-escopo, Contexto técnico, Perguntas em aberto.
+- PRD with: Problem, Target Audience, Proposed Solution, Success Criteria, Scope v0, Anti-scope, Technical Context, Open Questions.
 - At the end, suggests running `/vibeflow:gen-spec .vibeflow/prds/<slug>.md` to move to a technical spec.
 
 **Tip:** After the PRD is saved, run `/vibeflow:gen-spec .vibeflow/prds/<slug>.md` to produce a spec from it.
@@ -208,7 +208,7 @@ You should see `vibeflow:discover`, `vibeflow:quick`, `vibeflow:analyze`, `vibef
 
 **What it does (7 phases):**
 
-0. **Detect Mode** — checks if `.vibeflow/` exists and if `--fresh` flag is present. Routes to fresh or incremental mode. If incremental mode: reads the previous analysis date from `index.md`, runs `git log` to find changed files, filters out test/config files, and identifies affected modules. If no source files changed, reports "Nenhuma mudança detectada" and exits. If git is unavailable, warns and falls back to fresh run.
+0. **Detect Mode** — checks if `.vibeflow/` exists and if `--fresh` flag is present. Routes to fresh or incremental mode. If incremental mode: reads the previous analysis date from `index.md`, runs `git log` to find changed files, filters out test/config files, and identifies affected modules. If no source files changed, reports "No changes detected" and exits. If git is unavailable, warns and falls back to fresh run.
 
 1. **Discovery** — reads `package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, etc.; inspects top-level directory structure (2-3 levels); searches for knowledge sources (`.cursorrules`, `.cursor/rules/*.mdc`, `CLAUDE.md`, `.clinerules`, `.github/copilot-instructions.md`, `/docs/`, `ARCHITECTURE.md`, `ADRs/`); reads `README` and existing architecture docs. Determines stack, project type, major structural units, and reports which knowledge sources were found. Does not assume any specific structure. In incremental mode: only re-detect sources that changed.
 
@@ -439,8 +439,8 @@ A focused, self-contained pack covering ONLY the gaps.
 
 **Examples:**
 ```
-/vibeflow:teach "nosso padrão de error handling mudou para Result<T>"
-/vibeflow:teach "adiciona convenção: nunca usar any em TypeScript"
+/vibeflow:teach "our error handling pattern changed to Result<T>"
+/vibeflow:teach "add convention: never use any in TypeScript"
 ```
 
 **What it does:** Classifies feedback as (a) pattern correction, (b) new convention, (c) architectural decision, or (d) new pattern. Updates the appropriate `.vibeflow/` file OUTSIDE auto-generated markers so changes survive incremental analyze runs.
@@ -523,7 +523,7 @@ The `memory: project` flag means the architect's MEMORY.md persists across Claud
 └── audits/           # Audit reports from /vibeflow:audit
 ```
 
-**Tudo fica em `.vibeflow/`.** Uma pasta só para ignorar ou commitar como preferir. Se quiser ignorar os artefatos gerados mas manter o knowledge base:
+**Everything lives in `.vibeflow/`.** One folder to commit or gitignore as you prefer. If you want to ignore generated artifacts but keep the knowledge base:
 
 ```gitignore
 # Keep knowledge, ignore artifacts
@@ -626,7 +626,7 @@ Example using a fictional Next.js app:
 
 ```
 # 1. (Optional) Discover — when the idea is vague
-/vibeflow:discover "quero adicionar dark mode nas configurações"
+/vibeflow:discover "I want to add dark mode to settings"
 # → answers questions → generates .vibeflow/prds/dark-mode-config.md
 
 # 2. Analyze — run once per project (incremental after that)
@@ -636,7 +636,7 @@ Example using a fictional Next.js app:
 # 3. Generate spec — from PRD or description
 /vibeflow:gen-spec .vibeflow/prds/dark-mode-config.md
 # or: /vibeflow:gen-spec "add dark mode toggle"
-# → generates .vibeflow/.vibeflow/specs/add-dark-mode-toggle.md
+# → generates .vibeflow/specs/add-dark-mode-toggle.md
 
 # 4. Generate prompt pack — self-contained for any coding agent
 /vibeflow:prompt-pack .vibeflow/specs/add-dark-mode-toggle.md

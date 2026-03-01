@@ -6,10 +6,11 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-TODO output DEVE ser em Português BR. Termos técnicos em inglês
-são aceitáveis quando são padrão da indústria.
+Detect the language of the user's input ($ARGUMENTS or conversation).
+Write ALL output in that same language.
+Technical terms in English are acceptable regardless of the detected language.
 
 Fast-track prompt pack for: $ARGUMENTS
 
@@ -46,7 +47,7 @@ to understand the project:
 
 Keep all findings in memory — do NOT write files.
 
-At the end, suggest: "Para análises mais profundas, rode `/vibeflow:analyze`."
+At the end, suggest: "For deeper analysis, run `/vibeflow:analyze`."
 
 ## Phase 2: Generate ephemeral spec
 
@@ -71,7 +72,9 @@ Using the ephemeral spec and `.vibeflow/` knowledge (if available),
 generate the prompt pack. Follow the same structure as `/vibeflow:prompt-pack`:
 
 The prompt pack MUST start with:
-> Você só está vendo este prompt; não há contexto fora dele.
+> You are only seeing this prompt; there is no context outside it.
+
+(Write this opening line in the user's detected language.)
 
 Then include, in this order:
 
@@ -98,20 +101,20 @@ Architectural direction. NOT step-by-step.
 
 ### 7. How to Run/Test (MANDATORY)
 Detect test runner from stack. Always include test commands.
-If no test runner detected: "Nenhum test runner detectado.
-Adicione testes manuais para validar."
+If no test runner detected: "No test runner detected.
+Add manual tests to validate."
 
 Save the prompt pack to: `.vibeflow/prompt-packs/<feature-slug>.md`
 Create `.vibeflow/prompt-packs/` if it doesn't exist.
 
 ## After saving, report to the user:
 
-- Path do prompt pack gerado
-- Resumo do objetivo e DoD (2-3 linhas)
-- Budget usado (≤ 4 files)
-- Se `.vibeflow/` não existia: lembrar de rodar `/vibeflow:analyze`
-  para resultados mais ricos nas próximas vezes
-- Sugerir: "Depois de implementar, rode `/vibeflow:audit` para verificar."
+- Path of the generated prompt pack
+- Summary of objective and DoD (2-3 lines)
+- Budget used (≤ 4 files)
+- If `.vibeflow/` didn't exist: remind to run `/vibeflow:analyze`
+  for richer results next time
+- Suggest: "After implementing, run `/vibeflow:audit` to verify."
 
 ---
 

@@ -7,7 +7,7 @@ description: >
   build, how to build it, or reviewing what was built.
 ---
 
-> Idioma padrão: Português BR para todo output gerado.
+> Default language: Adapt output to the user's input language.
 
 # Spec-Driven Development
 

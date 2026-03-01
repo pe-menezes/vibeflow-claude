@@ -6,18 +6,19 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-TODO output DEVE ser em Português BR. Termos técnicos em inglês
-são aceitáveis quando são padrão da indústria.
+Detect the language of the user's conversation context.
+Write ALL output in that same language.
+Technical terms in English are acceptable regardless of the detected language.
 
 Compile and report statistics from audit reports.
 
 ## Steps
 
 1. Check if `.vibeflow/audits/` directory exists and contains `.md` files.
-   - If no audits found: report "Nenhum audit encontrado. Rode
-     `/vibeflow:audit` após implementar uma feature." and STOP.
+   - If no audits found: report "No audits found. Run
+     `/vibeflow:audit` after implementing a feature." and STOP.
 
 2. Read ALL `.md` files in `.vibeflow/audits/`.
 
@@ -36,7 +37,7 @@ Compile and report statistics from audit reports.
 ```
 ## Vibeflow Stats
 
-**Audits analisados:** N
+**Audits analyzed:** N
 
 ### Verdicts
 - PASS: N (X%)
@@ -44,30 +45,30 @@ Compile and report statistics from audit reports.
 - FAIL: N (X%)
 
 ### DoD
-- Total de checks: N
-- Taxa de aprovação: X%
-- Checks que mais falham:
-  1. "<check description>" — falhou N vezes
-  2. "<check description>" — falhou N vezes
-  3. "<check description>" — falhou N vezes
+- Total checks: N
+- Pass rate: X%
+- Most failing checks:
+  1. "<check description>" — failed N times
+  2. "<check description>" — failed N times
+  3. "<check description>" — failed N times
 
 ### Patterns
-- Patterns mais violados:
-  1. <pattern name> — N violações
-  2. <pattern name> — N violações
-  3. <pattern name> — N violações
+- Most violated patterns:
+  1. <pattern name> — N violations
+  2. <pattern name> — N violations
+  3. <pattern name> — N violations
 
 ### Convention Violations
-- Total: N violações em N audits
-- Mais comuns: <list top 3 if available>
+- Total: N violations em N audits
+- Most common: <list top 3 if available>
 
-### Tendência
+### Trend
 <If ≥3 audits exist, note if quality is improving (more PASS over time),
 stable, or degrading. Base on chronological order of audit dates.>
 ```
 
-5. If there are fewer than 3 audits, skip the "Tendência" section.
-   If there are no pattern violations, write "Nenhuma violação de pattern."
+5. If there are fewer than 3 audits, skip the "Trend" section.
+   If there are no pattern violations, write "No pattern violations."
 
 ## Rules
 
@@ -75,7 +76,7 @@ stable, or degrading. Base on chronological order of audit dates.>
 - Output goes directly to the chat, not to a file.
 - Keep the report concise (~20-30 lines).
 - If audit files have non-standard format, extract what you can and
-  note: "Formato não-padrão detectado em <file>."
+  note: "Non-standard format detected in <file>."
 
 ---
 

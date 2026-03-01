@@ -2,31 +2,31 @@
 
 ### v1.0.0 (2026-03-01)
 
-- **Release estável.** Todas as 8 melhorias planejadas implementadas e verificadas.
-- **Artefatos centralizados em `.vibeflow/`** — PRDs, specs, prompt packs e audits agora ficam todos dentro de `.vibeflow/` (antes eram pastas soltas na raiz do repo). Uma pasta só para commitar ou gitignore.
-- `plugin.json` versão alinhada com MANUAL e CHANGELOG.
-- Verify installation atualizado para listar todos os 8 commands.
-- Budget contextual referenciado nos guardrails da skill (MANUAL).
-- Consistência geral revisada e corrigida.
+- **Stable release.** All 8 planned improvements implemented and verified.
+- **Artifacts centralized in `.vibeflow/`** — PRDs, specs, prompt packs and audits now all live inside `.vibeflow/` (previously they were loose folders at repo root). One folder to commit or gitignore.
+- `plugin.json` version aligned with MANUAL and CHANGELOG.
+- Verify installation updated to list all 8 commands.
+- Contextual budget referenced in skill guardrails (MANUAL).
+- General consistency reviewed and corrected.
 
 ### v0.5.0 (2026-02-28)
 
-- **Novo command: `/vibeflow:teach`** — feedback estruturado para atualizar `.vibeflow/`. Aceita correções de patterns, novas convenções, decisões arquiteturais e novos patterns em linguagem natural. Edita os docs fora dos markers auto para sobreviver a runs incrementais.
-- **Novo command: `/vibeflow:stats`** — estatísticas de audits. Lê todos os audit reports e compila: taxa de PASS/PARTIAL/FAIL, patterns mais violados, DoD checks que mais falham, tendência de qualidade.
-- **Budget contextual** — `/vibeflow:analyze` agora calcula um budget sugerido baseado no tamanho do projeto (2-3% dos source files, mín 4, máx 10) e grava em `.vibeflow/index.md`. `gen-spec` e `prompt-pack` leem esse valor. Fallback: ≤6 se não disponível.
-- **Discover adaptativo** — `/vibeflow:discover` agora avalia clareza após a primeira resposta. Se problema, público e escopo já estão claros, usa fast-track (1-2 rodadas em vez de 3-5). Opening reformulado para convidar detalhamento upfront.
-- **MANUAL.md enxugado** — changelog extraído para `CHANGELOG.md`. Seções condensadas: commands reference, workflow example, file map. Target ~500 linhas.
+- **New command: `/vibeflow:teach`** — structured feedback to update `.vibeflow/`. Accepts pattern corrections, new conventions, architectural decisions, and new patterns in natural language. Edits docs outside auto markers to survive incremental runs.
+- **New command: `/vibeflow:stats`** — audit statistics. Reads all audit reports and compiles: PASS/PARTIAL/FAIL rates, most violated patterns, most failing DoD checks, quality trends.
+- **Contextual budget** — `/vibeflow:analyze` now calculates a suggested budget based on project size (2-3% of source files, min 4, max 10) and writes it to `.vibeflow/index.md`. `gen-spec` and `prompt-pack` read this value. Fallback: ≤6 if unavailable.
+- **Adaptive discover** — `/vibeflow:discover` now evaluates clarity after the first response. If problem, audience, and scope are already clear, uses fast-track (1-2 rounds instead of 3-5). Opening reformulated to invite upfront detail.
+- **MANUAL.md trimmed** — changelog extracted to `CHANGELOG.md`. Sections condensed: commands reference, workflow example, file map. Target ~500 lines.
 
 ### v0.4.0 (2026-02-28)
 
-- **Novo command: `/vibeflow:quick`** — fast-track para tasks pequenas. Um único comando que gera prompt pack direto, pulando discover e spec. Faz lightweight scan se `.vibeflow/` não existe. Budget padrão ≤4 arquivos. Spec efêmera (não persiste).
-- **Architect model → Sonnet** — modelo padrão do agent architect mudou de Opus para Sonnet. ~3x mais barato e rápido, qualidade excelente para tarefas de spec-driven development. Opus disponível via edição manual do frontmatter em `agents/architect.md`.
-- **Testes obrigatórios no audit** — `/vibeflow:audit` agora detecta e roda testes automaticamente baseado no stack do projeto (npm test, pytest, cargo test, etc.). Teste falhou = FAIL automático, independente do DoD. `/vibeflow:prompt-pack` agora sempre inclui seção de test commands obrigatórios.
+- **New command: `/vibeflow:quick`** — fast-track for small tasks. A single command that generates a prompt pack directly, skipping discover and spec. Runs lightweight scan if `.vibeflow/` doesn't exist. Default budget ≤4 files. Ephemeral spec (not persisted).
+- **Architect model → Sonnet** — default model for the architect agent changed from Opus to Sonnet. ~3x cheaper and faster, excellent quality for spec-driven development tasks. Opus available via manual edit of frontmatter in `agents/architect.md`.
+- **Mandatory tests in audit** — `/vibeflow:audit` now detects and runs tests automatically based on the project stack (npm test, pytest, cargo test, etc.). Test failure = automatic FAIL, regardless of DoD. `/vibeflow:prompt-pack` now always includes mandatory test commands section.
 
 ### v0.3.0 (2026-02-26)
 
 - `/vibeflow:analyze` — **incremental analysis:**
-  - **Phase 0 (new)** — Detect Mode: checks if `.vibeflow/` exists and if `--fresh` flag is present. Routes to fresh or incremental mode. On incremental: reads previous analysis date, runs `git log` to find changed files, identifies affected modules. On "no changes": reports "Nenhuma mudança detectada" and exits early. Fallback to fresh if git unavailable.
+  - **Phase 0 (new)** — Detect Mode: checks if `.vibeflow/` exists and if `--fresh` flag is present. Routes to fresh or incremental mode. On incremental: reads previous analysis date, runs `git log` to find changed files, identifies affected modules. On "no changes": reports "No changes detected" and exits early. Fallback to fresh if git unavailable.
   - **Phases 1-5 updated with incremental scoping:** Each phase now has an "Incremental mode:" paragraph describing what to preserve and what to re-analyze. Fresh mode unchanged.
   - **Marker system for pattern docs:** Pattern docs and `conventions.md` now use `<!-- vibeflow:auto:start/end -->` markers to delimit auto-generated sections. During incremental updates, only content within markers is regenerated; manual edits outside markers are preserved. Legacy pattern docs without markers are rewritten with markers added.
   - **decisions.md protection:** Never modified by analyze command in any mode (fresh or incremental). Created only on first run if doesn't exist. Reserved for architect and manual curation.
@@ -45,12 +45,12 @@
 
 ### v0.1.2 (2026-02-25)
 
-- Novo command: `/vibeflow:discover` — diálogo interativo para PRD
-- `gen-spec` aceita PRD como input (`/vibeflow:gen-spec prds/<slug>.md`)
+- New command: `/vibeflow:discover` — interactive dialogue for PRD
+- `gen-spec` accepts PRD as input (`/vibeflow:gen-spec prds/<slug>.md`)
 
 ### v0.1.1 (2026-02-25)
 
-- Output padrão forçado para Português BR em todos os commands e agent
+- Default output language now adapts to user's input language across all commands and agent
 
 ### v0.1.0 — Initial release
 

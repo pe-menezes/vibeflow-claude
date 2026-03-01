@@ -52,8 +52,8 @@ In the Cowork desktop app:
 
 | Command | Description |
 |---------|-------------|
-| `/vibeflow:discover <ideia>` | Diálogo interativo para transformar ideia vaga em PRD |
-| `/vibeflow:quick <descrição>` | Fast-track: gera prompt pack direto para tasks pequenas (≤4 arquivos) |
+| `/vibeflow:discover <idea>` | Interactive dialogue to turn a vague idea into a PRD |
+| `/vibeflow:quick <description>` | Fast-track: generates prompt pack directly for small tasks (≤4 files) |
 | `/vibeflow:analyze` | Deep-analyze the codebase, build pattern docs in `.vibeflow/` |
 | `/vibeflow:gen-spec <feature>` | Generate a spec with DoD, scope, anti-scope, applicable patterns |
 | `/vibeflow:prompt-pack <spec>` | Generate a self-contained prompt pack with embedded patterns |
@@ -64,22 +64,22 @@ In the Cowork desktop app:
 ## How It Works
 
 ```
-/vibeflow:discover → diálogo → PRD (quando a ideia é vaga)
+/vibeflow:discover → dialogue → PRD (when the idea is vague)
         ↓
-/vibeflow:analyze → descobre patterns do codebase (rodar uma vez)
+/vibeflow:analyze → discovers codebase patterns (run once)
         ↓
-/vibeflow:gen-spec → spec com DoD e patterns (aceita PRD como input)
+/vibeflow:gen-spec → spec with DoD and patterns (accepts PRD as input)
         ↓
-/vibeflow:prompt-pack → prompt auto-contido com código real
+/vibeflow:prompt-pack → self-contained prompt with real code
         ↓
-    Coding agent implementa
+    Coding agent implements
         ↓
-/vibeflow:audit → verifica DoD + conformidade com patterns
+/vibeflow:audit → verifies DoD + pattern compliance
         ↓
-    PASS? Envia. PARTIAL/FAIL? Prompt incremental → repete
+    PASS? Ship. PARTIAL/FAIL? Incremental prompt → repeat
 ```
 
-**Fast-track:** `/vibeflow:quick "descrição"` → prompt pack direto (pula discover/spec)
+**Fast-track:** `/vibeflow:quick "description"` → prompt pack directly (skips discover/spec)
 
 ## Project Knowledge (.vibeflow/)
 
@@ -145,4 +145,3 @@ methodology without you needing to invoke a command.
 ## License
 
 MIT
-# vibeflow

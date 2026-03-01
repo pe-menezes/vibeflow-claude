@@ -8,13 +8,13 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-O prompt pack DEVE ser escrito em Português BR. A frase inicial deve ser:
-"Você só está vendo este prompt; não há contexto fora dele."
+The prompt pack MUST be written in the user's detected language. The opening line should be language-adaptive:
+Write the opening line in the user's detected language. The concept is: "You are only seeing this prompt; there is no context outside it."
 
-Todo o conteúdo textual (objetivo, DoD, anti-escopo, guidance) em
-português. Código, paths e nomes técnicos permanecem em inglês.
+All textual content (objective, DoD, anti-scope, guidance) should be in the detected language.
+Code, paths and technical names remain in English.
 
 Generate a self-contained prompt pack for: $ARGUMENTS
 
@@ -31,9 +31,11 @@ Generate a self-contained prompt pack for: $ARGUMENTS
 5. Read the actual codebase files relevant to this task.
 6. Generate the prompt pack.
 
-## The prompt pack MUST start with:
+## The Prompt Pack MUST Start With:
 
-> Você só está vendo este prompt; não há contexto fora dele.
+> You are only seeing this prompt; there is no context outside it.
+
+(Write this opening line in the user's detected language.)
 
 ## Then include, in this order:
 
@@ -85,13 +87,13 @@ Commands to validate the implementation. This section is REQUIRED.
 - Always include the detected test command (e.g., `npm test`, `pytest`,
   `cargo test`, `go test ./...`).
 - If the spec lists specific test commands, include those too.
-- If no test runner is detected, write: "Nenhum test runner detectado.
-  Adicione testes manuais para validar."
+- If no test runner is detected, write: "No test runner detected.
+  Add manual tests to validate."
 - Format example:
   ```
-  ## Como validar
-  1. Rodar testes: `npm test`
-  2. Verificar manualmente: [descrição]
+  ## How to validate
+  1. Run tests: `npm test`
+  2. Verify manually: [description]
   ```
 
 ### 8. Docs to Update

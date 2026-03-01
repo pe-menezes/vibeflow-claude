@@ -7,10 +7,11 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-TODO output DEVE ser em Português BR. Termos técnicos em inglês
-são aceitáveis quando são padrão da indústria.
+Detect the language of the user's input ($ARGUMENTS or conversation).
+Write ALL output in that same language.
+Technical terms in English are acceptable regardless of the detected language.
 
 Process feedback and update project knowledge: $ARGUMENTS
 
@@ -18,14 +19,14 @@ Process feedback and update project knowledge: $ARGUMENTS
 
 1. Check if `.vibeflow/` exists.
    - **YES** → read `.vibeflow/index.md` for orientation.
-   - **NO** → warn: "`.vibeflow/` não existe. Rode `/vibeflow:analyze`
-     primeiro para criar a knowledge base." and STOP.
+   - **NO** → warn: "`.vibeflow/` does not exist. Run `/vibeflow:analyze`
+     first to create the knowledge base." and STOP.
 
 ## Classify the feedback
 
 Read $ARGUMENTS and classify into one of these categories:
 
-### (a) Correção de pattern existente
+### (a) Existing pattern correction
 The user is saying an existing pattern doc is wrong or outdated.
 - Identify which `patterns/*.md` file is affected.
 - Read that file.
@@ -34,26 +35,26 @@ The user is saying an existing pattern doc is wrong or outdated.
   or append to it).
 - This ensures the correction survives incremental analyze runs.
 
-### (b) Nova convenção
+### (b) New convention
 The user is adding a coding convention.
 - Read `conventions.md`.
 - Add the new convention OUTSIDE the `<!-- vibeflow:auto -->` markers
   (add a `## Team Conventions` section at the end if it doesn't exist,
   or append to it).
 
-### (c) Decisão arquitetural
+### (c) Architectural decision
 The user is recording an architectural decision.
 - Read `decisions.md`.
 - Add a new entry at the TOP (newest first), formatted as:
 
 ```
 ### <date> — <title>
-**Decisão:** <what was decided>
-**Contexto:** <why>
-**Alternativas descartadas:** <what was not chosen and why>
+**Decision:** <what was decided>
+**Context:** <why>
+**Discarded alternatives:** <what was not chosen and why>
 ```
 
-### (d) Novo pattern
+### (d) New pattern
 The user is describing a pattern that doesn't have a doc yet.
 - Create a new file: `.vibeflow/patterns/<name>.md`
 - Use the standard structure with markers:
@@ -66,7 +67,7 @@ The user is describing a pattern that doesn't have a doc yet.
 <from user feedback>
 
 ## Where
-<inferred from feedback, or "A ser confirmado pelo analyze">
+<inferred from feedback, or "To be confirmed by analyze">
 
 ## The Pattern
 <from user feedback — real code if provided, otherwise description>
@@ -88,8 +89,8 @@ Report to the user:
 - What category was identified
 - Which file(s) were modified
 - What was added/changed (brief summary)
-- Suggest: "Rode `/vibeflow:analyze` na próxima oportunidade para
-  sincronizar as seções auto-geradas com suas correções."
+- Suggest: "Run `/vibeflow:analyze` at the next opportunity to
+  sync auto-generated sections with your corrections."
 
 ## Rules
 

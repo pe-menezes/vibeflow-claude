@@ -7,12 +7,11 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-TODO output DEVE ser em Português BR. O audit report inteiro deve
-ser em português, incluindo: verdict, checklist, gaps, observações
-e prompt pack incremental (se houver). Termos técnicos em inglês
-são aceitáveis quando são padrão da indústria.
+Detect the language of the user's input ($ARGUMENTS or conversation).
+Write ALL output in that same language.
+Technical terms in English are acceptable regardless of the detected language.
 
 Audit the implementation for: $ARGUMENTS
 
@@ -43,8 +42,8 @@ Audit the implementation for: $ARGUMENTS
      - Tests FAIL → **automatic FAIL verdict.** Stop auditing. The
        incremental prompt pack targets the test failures.
      - Tests PASS → continue to step 6.
-   - If NO test runner is detected: warn "Nenhum test runner detectado.
-     Verifique se testes foram rodados manualmente." and continue.
+   - If NO test runner is detected: warn "No test runner detected.
+     Verify that tests were run manually." and continue.
 6. Audit TWO things:
 
 ### A. DoD Compliance

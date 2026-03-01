@@ -9,12 +9,14 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-TODO output DEVE ser em Português BR. Nomes de seções nos arquivos
-gerados em `.vibeflow/` podem ser em inglês (são técnicos), mas
-todo texto descritivo, análises, observações e o report final para
-o usuário devem ser em Português BR.
+Detect the language of the user's conversation context.
+Write ALL output in that same language.
+Technical terms in English are acceptable regardless of the detected language.
+Section names in generated `.vibeflow/` files may be in English (they are technical),
+but all descriptive text, analyses, observations, and final user reports should be
+in the detected language.
 
 Perform a deep, adaptive analysis of this codebase. Your goal is to build
 curated pattern documentation that will be used by every future spec,
@@ -35,9 +37,9 @@ Check the current state to decide whether to run a fresh analysis or incremental
   2. Run `git log --since="<date>" --name-only --pretty=format:""` to find files changed since that analysis date
   3. Filter out test files, documentation files, config files that don't affect source code structure (e.g., exclude `*.test.*`, `*.spec.*`, `docs/`, `README.md`, `.env.*`, etc.)
   4. Map remaining changed files to modules/directories to determine which structural units were affected
-  5. If NO source files changed → report "Nenhuma mudança detectada desde <date>. .vibeflow/ está atualizado." and STOP (exit early)
-  6. If git is not available → warn "Git não disponível. Revertendo para análise completa." and proceed with full analysis (Phases 1-5)
-  7. If source files DID change → report "Modo incremental: X módulos afetados: [list]" and proceed to Phase 1 with incremental scoping
+  5. If NO source files changed → report "No changes detected since <date>. .vibeflow/ is up to date." and STOP (exit early)
+  6. If git is not available → warn "Git not available. Falling back to full analysis." and proceed with full analysis (Phases 1-5)
+  7. If source files DID change → report "Incremental mode: X affected modules: [list]" and proceed to Phase 1 with incremental scoping
 
 ## Phase 1: Discovery (broad scan)
 
@@ -83,7 +85,7 @@ Read all sources of knowledge found in Phase 1. From each, extract:
 Produce an internal map (not a final output file):
 - List of conventions extracted (with source attribution: "via .cursorrules", "via docs/ARCHITECTURE.md", etc.)
 - List of modules/subsystems mentioned in rules
-- **Principle:** Rules are privileged input, not absolute truth. Validate against code. Flag conflicts: "⚠️ Conflito: .cursorrules says X, but code does Y"
+- **Principle:** Rules are privileged input, not absolute truth. Validate against code. Flag conflicts: "⚠️ Conflict: .cursorrules says X, but code does Y"
 - Distinguish sources: `.cursorrules` + `CLAUDE.md` = project-level rules; `.cursor/rules/*.mdc` = domain-specific; `/docs/` = reference docs
 
 **Purpose of this map:** Guide the sampling strategy in Phase 2 and the deep dive scope in Phase 3.
@@ -208,7 +210,7 @@ In fresh mode, proceed as described below.
 > Analyzed: <date>
 > Stack: <concise summary>
 > Type: <project type>
-> Budget sugerido: ≤ N arquivos por task
+> Suggested budget: ≤ N files per task
 
 ## Structure
 <brief description of how the project is organized>
@@ -238,7 +240,7 @@ a minimum of 4 and a maximum of 10:
 - 151-300 files → budget ≤ 8
 - 300+ files → budget ≤ 10
 
-Write the result as `> Budget sugerido: ≤ N arquivos por task` in the
+Write the result as `> Suggested budget: ≤ N files per task` in the
 index.md header. This is used by gen-spec and prompt-pack as the default budget.
 
 ### conventions.md format:
@@ -247,7 +249,7 @@ Dense, specific, actionable. NOT vague guidelines — concrete rules with exampl
 
 **Markers in conventions.md:** Wrap the main auto-generated convention sections with `<!-- vibeflow:auto:start -->` and `<!-- vibeflow:auto:end -->`. This allows manual additions (team updates, discovered edge cases) to persist outside the markers when running incremental updates.
 
-**Incorporate rules from Phase 1.5:** Conventions extracted from rules/instructions must be included in conventions.md with source attribution: "(via .cursorrules)", "(via .cursor/rules/design-system.mdc)", "(via docs/ARCHITECTURE.md)". If a rule contradicts code, signal conflict: "⚠️ Conflito: .cursorrules says X, but the code does Y".
+**Incorporate rules from Phase 1.5:** Conventions extracted from rules/instructions must be included in conventions.md with source attribution: "(via .cursorrules)", "(via .cursor/rules/design-system.mdc)", "(via docs/ARCHITECTURE.md)". If a rule contradicts code, signal conflict: "⚠️ Conflict: .cursorrules says X, but the code does Y".
 
 ### decisions.md:
 

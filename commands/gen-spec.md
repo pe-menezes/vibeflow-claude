@@ -7,21 +7,20 @@ description: >
 disable-model-invocation: true
 ---
 
-## Idioma
+## Language
 
-TODO output DEVE ser em Português BR. A spec inteira deve ser escrita
-em português, incluindo: objetivo, contexto, DoD, escopo, anti-escopo,
-decisões técnicas e riscos. Termos técnicos em inglês são aceitáveis
-quando são padrão da indústria (e.g. "endpoint", "middleware", "deploy").
+Detect the language of the user's input ($ARGUMENTS or conversation).
+Write ALL output in that same language.
+Technical terms in English are acceptable regardless of the detected language.
 
 Generate a complete spec for: $ARGUMENTS
 
 ## Before writing the spec:
 
-0. Se $ARGUMENTS é um path para um arquivo `.md` dentro de `.vibeflow/prds/`,
-   leia o PRD. Use o PRD como base para a spec — o problema, público,
-   solução, escopo e anti-escopo já estão definidos. Foque em traduzir
-   para decisões técnicas, DoD binário, e patterns aplicáveis.
+0. If $ARGUMENTS is a path to a `.md` file inside `.vibeflow/prds/`,
+   read the PRD. Use the PRD as the basis for the spec — the problem,
+   audience, solution, scope, and anti-scope are already defined. Focus
+   on translating to technical decisions, binary DoD, and applicable patterns.
 
 1. Check if `.vibeflow/` exists. If it does:
    - Read `.vibeflow/index.md` for project context
