@@ -159,6 +159,16 @@ methodology without you needing to invoke a command.
 - **Knowledge compounds.** The more you use Vibeflow, the better it understands
   your project.
 
+## Manual
+
+Veja o [MANUAL.md](../MANUAL.md) para a documentação completa de todos os comandos e fluxos.
+
+## Distribuição
+
+O Claude Code exige um repo git dedicado para o marketplace.
+O repo de distribuição é [pe-menezes/vibeflow](https://github.com/pe-menezes/vibeflow).
+O source of truth dos arquivos está nesta pasta (`claude-code/`).
+
 ## License
 
 MIT
