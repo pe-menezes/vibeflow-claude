@@ -4,7 +4,7 @@ description: >
   Implements a feature from its spec following all guardrails: budget, DoD,
   anti-scope, and pattern compliance. Runs a 7-phase pipeline (find spec →
   extract guardrails → load patterns → plan → implement → test → self-verify DoD).
-  Use after gen-spec when you're ready to code. Claude Code only — the agent
+  Use after gen-spec when you're ready to code. The agent
   has filesystem access and acts as Coding Agent.
 argument-hint: "<spec file or feature name>"
 allowed-tools: Read, Grep, Glob, Bash, Edit, Write
