@@ -2,214 +2,153 @@
 
 > Spec-driven development for AI agents. Define what to build, let the agent build it right.
 
-Vibeflow is a plugin for [Claude Code](https://code.claude.com) and
-[Claude Cowork](https://claude.com/product/cowork) that separates thinking
-from coding. It analyzes your codebase, generates grounded specs with a
-Definition of Done, implements with guardrails (budget, anti-scope, pattern
-compliance), and audits the result — all driven by your project's real patterns.
+Vibeflow is a shared plugin for Codex, Claude Code, and Claude Desktop. It
+analyzes your codebase, generates grounded specs with a binary Definition of
+Done, implements within explicit scope and budget guardrails, and audits the
+result against your project's real patterns.
 
 ## Install
 
-### Claude Desktop (Cowork) — recommended
+### Codex
 
-1. Sidebar → **Customize**
-2. Click **+** next to "Personal plugins" → **Add marketplace**
-3. Paste: `pe-menezes/vibeflow-claude`
-4. Click **Sync**
-5. **Browse plugins** → Install **Vibeflow**
-
-### Claude Code CLI (terminal only)
-
-> **These commands only work in the terminal CLI** (`claude` command). They do NOT work in the Claude Desktop chat.
+Add the main repository as a marketplace and install the plugin:
 
 ```bash
-/plugin marketplace add pe-menezes/vibeflow-claude
+codex plugin marketplace add pe-menezes/vibeflow
+codex plugin add vibeflow@vibeflow-marketplace
+```
+
+Start a new Codex task after installation so the skills are loaded. Vibeflow
+skills are selected automatically from natural-language requests; for example,
+ask Codex to “analyze this project with Vibeflow” or “generate a Vibeflow spec
+for this feature.”
+
+### Claude Desktop
+
+1. Open **Customize** in the sidebar.
+2. Click **+** next to “Personal plugins”, then **Add marketplace**.
+3. Paste `pe-menezes/vibeflow`.
+4. Click **Sync**.
+5. Choose **Browse plugins** and install **Vibeflow**.
+
+### Claude Code CLI
+
+These slash commands run inside the Claude Code terminal session:
+
+```text
+/plugin marketplace add pe-menezes/vibeflow
 /plugin install vibeflow@vibeflow-marketplace
 ```
 
-> The marketplace repo is **vibeflow-claude** (synced from this repo). Use `owner/repo` format, not the raw `marketplace.json` URL.
+Existing installations that use `pe-menezes/vibeflow-claude` remain
+supported. That repository is a compatibility mirror generated from this
+package.
 
 ### Local development
 
+From a checkout of the main repository:
+
 ```bash
-# 1. Create a marketplace wrapper
-mkdir vibeflow-marketplace
-cd vibeflow-marketplace
-mkdir .claude-plugin
+# Codex
+codex plugin marketplace add /absolute/path/to/vibeflow
+codex plugin add vibeflow@vibeflow-marketplace
+```
 
-# 2. Create marketplace.json
-cat > .claude-plugin/marketplace.json << 'EOF'
-{
-  "name": "vibeflow-marketplace",
-  "owner": { "name": "Vibeflow" },
-  "plugins": [{
-    "name": "vibeflow",
-    "source": "./vibeflow-plugin",
-    "description": "Spec-driven development for AI agents"
-  }]
-}
-EOF
-
-# 3. Clone the plugin (marketplace repo)
-git clone https://github.com/pe-menezes/vibeflow-claude.git vibeflow-plugin
-
-# 4. In Claude Code
-/plugin marketplace add /path/to/vibeflow-marketplace
+```text
+# Claude Code
+/plugin marketplace add /absolute/path/to/vibeflow
 /plugin install vibeflow@vibeflow-marketplace
-# Restart Claude Code
 ```
 
-## Quick Start (3 commands)
+## Quick start
 
-```
-/vibeflow:analyze              → scans your codebase, builds .vibeflow/ knowledge
-/vibeflow:gen-spec "feature"   → generates spec with DoD, scope, patterns
-/vibeflow:implement <spec>     → implements with guardrails (budget, DoD, tests)
-```
+The core workflow is the same on every host:
 
-That's it. Run `analyze` once, then `gen-spec` → `implement` for each feature.
-
-## All Commands
-
-### Core Pipeline
-
-| Command | Description |
-|---------|-------------|
-| `/vibeflow:analyze` | Deep-analyzes the codebase, builds pattern docs in `.vibeflow/` |
-| `/vibeflow:gen-spec <feature>` | Generates a spec with DoD, scope, anti-scope, applicable patterns |
-| `/vibeflow:implement <spec>` | Implements from spec with guardrails (budget, DoD, patterns, tests) |
-
-`analyze` supports `--fresh`, `--scope <path>`, `--interactive`, and `--satellite <url>` flags.
-
-### Secondary
-
-| Command | Description |
-|---------|-------------|
-| `/vibeflow:audit <spec>` | Audits implementation against DoD + patterns + tests + Critical Gate (PASS / PARTIAL / FAIL) |
-| `/vibeflow:hotfix <symptom + evidence>` | Fixes an observed defect with reproducible evidence in one call: trace doc + fix + regression test written before the fix. Accepts a halted doc path to resume |
-| `/vibeflow:discover <idea>` | Interactive dialogue to turn a vague idea into a PRD (1–5 rounds) |
-| `/vibeflow:prompt-pack <spec>` | Generates a self-contained prompt pack with embedded patterns for any agent |
-
-`audit` supports `--consolidate-hotfixes`: reclassifies hotfix trace docs against the current code (still-holds / promote / regressed).
-
-### Utility
-
-| Command | Description |
-|---------|-------------|
-| `/vibeflow:quick <description>` | Fast-track: generates prompt pack directly for small tasks (≤4 files) |
-| `/vibeflow:teach <feedback>` | Updates `.vibeflow/` with corrections, conventions, or decisions. `--from <url\|path>` imports patterns from external repos |
-| `/vibeflow:stats` | Compiles audit statistics: pass rates, common violations, trends |
-
-## How It Works
-
-```
-/vibeflow:analyze → discovers codebase patterns (run once)
-        ↓
-/vibeflow:discover → dialogue → PRD (when the idea is vague)
-        ↓
-/vibeflow:gen-spec → spec with DoD and patterns (accepts PRD as input)
-        ↓
-/vibeflow:implement → implements from spec with guardrails
-   or /vibeflow:prompt-pack → self-contained prompt for other agents
-        ↓
-/vibeflow:audit → verifies DoD + pattern compliance
-        ↓
-    PASS? Ship. PARTIAL/FAIL? Incremental prompt → repeat
+```text
+analyze              → scan the codebase and build .vibeflow/ knowledge
+gen-spec "feature"   → define DoD, scope, anti-scope, and patterns
+implement <spec>     → implement within the agreed guardrails
+audit <spec>         → verify the result with evidence
 ```
 
-**Shortcuts:**
-- `/vibeflow:hotfix "symptom + evidence"` → observed defect with reproducible evidence: trace doc + fix + regression test written before the fix, in one call (quick stays for planned small tasks)
-- `/vibeflow:quick "description"` → prompt pack directly (skips discover/spec)
-- `/vibeflow:analyze --satellite <url>` → analyze a dependency repo (e.g. design system)
-- `/vibeflow:teach --from <url>` → import patterns from an external conventions repo
+In Claude, invoke the namespaced commands such as `/vibeflow:analyze`. In
+Codex, describe the same goal naturally and the matching skill is discovered
+from its description.
 
-## Project Knowledge (.vibeflow/)
+## Workflows
 
-When you run `/vibeflow:analyze`, Vibeflow scans your codebase and creates
-a `.vibeflow/` directory with curated documentation:
+| Skill | What it does |
+|-------|--------------|
+| `analyze` | Deep-analyzes the codebase and builds `.vibeflow/` project knowledge |
+| `discover` | Turns a vague idea into a focused PRD through a short dialogue |
+| `gen-spec` | Produces an implementation contract with binary DoD and anti-scope |
+| `implement` | Implements an approved spec within its budget and patterns |
+| `audit` | Checks DoD, patterns, tests, and the destructive-operation Critical Gate |
+| `hotfix` | Fixes an evidenced defect with a trace document and regression test |
+| `prompt-pack` | Creates a self-contained handoff for another agent or task |
+| `quick` | Fast-tracks a clear task that fits in four files or fewer |
+| `teach` | Adds corrections, conventions, decisions, or imported patterns |
+| `stats` | Aggregates audit verdicts, gaps, and quality trends |
 
-```
+## Project knowledge
+
+Vibeflow stores its durable project context in one directory:
+
+```text
 .vibeflow/
-├── index.md              # Project overview, structure, key files
-├── conventions.md        # Coding conventions with real examples
-├── decisions.md          # Architectural decisions log (grows with use)
+├── index.md
+├── conventions.md
+├── decisions.md
 ├── patterns/
-│   └── <varies>.md       # One doc per discovered pattern (adaptive)
-├── prds/                 # PRDs from /vibeflow:discover
-├── specs/                # Specs from /vibeflow:gen-spec
-├── prompt-packs/         # Prompt packs from /vibeflow:prompt-pack and :quick
-├── hotfixes/             # Trace docs from /vibeflow:hotfix (one per bug)
-└── audits/               # Audit reports from /vibeflow:audit
+├── prds/
+├── specs/
+├── prompt-packs/
+├── hotfixes/
+└── audits/
 ```
 
-**Everything lives in `.vibeflow/`.** One folder to commit or gitignore as you prefer.
+The knowledge is adaptive: it is grounded in code that actually exists in the
+project, and it compounds as specs, decisions, fixes, and audits are added.
 
-**This is adaptive.** Vibeflow doesn't assume your project is a monorepo,
-a Next.js app, or any specific structure. It discovers what your project
-actually is and creates pattern docs that match.
+## Package structure
 
-**This is real, not theoretical.** Every pattern doc includes actual code
-from your repo showing how the pattern works. When a prompt pack is generated,
-these real examples are embedded so the coding agent follows your conventions
-exactly.
-
-**This grows with use.** The initial analyze builds the foundation. Every
-subsequent spec, prompt pack, and audit can update the knowledge — new patterns
-discovered, decisions made, pitfalls encountered.
-
-**Commit it to git.** The `.vibeflow/` directory is living documentation.
-Review it, commit it, and your whole team benefits.
-
-## Plugin Structure
-
-```
-vibeflow/
-├── .claude-plugin/
-│   └── plugin.json         # Plugin manifest (name, version, description)
+```text
+plugins/vibeflow/
+├── .claude-plugin/plugin.json
+├── .codex-plugin/plugin.json
 ├── skills/
-│   ├── analyze/SKILL.md    # Deep codebase analysis
-│   ├── discover/SKILL.md   # Idea → PRD dialogue
-│   ├── gen-spec/SKILL.md   # PRD/idea → technical spec
-│   ├── implement/SKILL.md  # Spec → code with guardrails
-│   ├── hotfix/SKILL.md     # Evidence → trace doc + fix + test
-│   ├── audit/SKILL.md      # DoD + pattern verification
-│   ├── prompt-pack/SKILL.md # Spec → self-contained prompt
-│   ├── quick/SKILL.md      # Fast-track for small tasks
-│   ├── teach/SKILL.md      # Update .vibeflow/ knowledge
-│   └── stats/SKILL.md      # Audit statistics
+│   └── <workflow>/SKILL.md
 └── agents/
-    └── architect.md        # Senior architect sub-agent
+    └── architect.md
 ```
 
-## Agent: Architect
-
-The **architect** sub-agent is a senior CTO/CPO that thinks before coding.
-It has persistent memory (`memory: project`) and reads `.vibeflow/` docs
-before every task. Claude delegates to it for planning and architecture decisions.
-
-It never writes implementation code — only specs, prompt packs, and audits.
+The ten skills are the shared source of truth. The Claude manifest exposes the
+Claude-specific architect sub-agent with project-scoped persistent memory;
+Codex exposes only the shared skills and uses `.vibeflow/` as durable project
+context through its native task/agent model.
 
 ## Philosophy
 
-- **No DoD, no work.** Every task needs binary pass/fail checks.
-- **Patterns first.** Specs and prompt packs reference real patterns from your repo.
-- **Directional, not prescriptive.** Prompt packs give context, direction, and
-  patterns to follow — not step-by-step instructions.
-- **Minimum viable change.** Close the DoD. Nothing beyond.
-- **Anti-scope is a guardrail.** What you won't do matters as much as what you will.
-- **Knowledge compounds.** The more you use Vibeflow, the better it understands
-  your project.
-
-## Documentation
-
-- [vibeflow.run](https://vibeflow.run) — Website with command reference, examples, and plugin docs
-- [MANUAL.md](../MANUAL.md) — Full documentation of all commands and flows (PT-BR)
+- **No DoD, no work.** Every planned task needs binary pass/fail checks.
+- **Patterns first.** Specs and implementations follow evidence from the repo.
+- **Directional, not prescriptive.** Context and constraints beat scripted code.
+- **Minimum viable change.** Close the DoD and stop outside the agreed scope.
+- **Anti-scope is a guardrail.** What will not change is part of the contract.
+- **Knowledge compounds.** Each cycle leaves the project easier to understand.
 
 ## Distribution
 
-Claude Code requires a dedicated git repo for the marketplace.
-The distribution repo (marketplace) is [pe-menezes/vibeflow-claude](https://github.com/pe-menezes/vibeflow-claude).
-The source of truth for all files is this folder (`claude-code/`).
+The source of truth is this directory in
+[`pe-menezes/vibeflow`](https://github.com/pe-menezes/vibeflow). The repository
+root carries separate Claude and Codex marketplace catalogs that both resolve
+to this package. GitHub Actions publishes a Claude-only compatibility view to
+[`pe-menezes/vibeflow-claude`](https://github.com/pe-menezes/vibeflow-claude).
+
+## Documentation
+
+- [vibeflow.run](https://vibeflow.run) — command reference and examples
+- [MANUAL.md](https://github.com/pe-menezes/vibeflow/blob/main/MANUAL.md) — complete guide in Portuguese
+- [CHANGELOG.md](https://github.com/pe-menezes/vibeflow/blob/main/CHANGELOG.md) — version history
 
 ## License
 
